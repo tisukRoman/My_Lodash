@@ -13,7 +13,16 @@ var users = [
 
 const findIndex = (array, predicate, fromIndex = 0) => {
     if (Array.isArray(array)) {
-        if (typeof predicate === 'function') {
+        if (Array.isArray(predicate)) {
+            const propName = predicate[0];
+            const propValue = predicate[1];
+            return array.findIndex((el, i) => {
+                if (i >= fromIndex) {
+                    return el[propName] === propValue;
+                }
+            });
+        }
+        else if (typeof predicate === 'function') {
             return array.findIndex((el, i) => {
                 if (i >= fromIndex) {
                     return predicate(el);
@@ -35,3 +44,4 @@ const findIndex = (array, predicate, fromIndex = 0) => {
 console.log(findIndex(users, (o) => o.user == 'fred')); // => 0
 console.log(findIndex(users, (o) => o.user == 'barney', 2)); // => 3
 console.log(findIndex(users, { 'user': 'fred', 'active': false })); // => 1
+console.log(findIndex(users, ['active', false], 2)); // => 0
