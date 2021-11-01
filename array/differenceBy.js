@@ -15,7 +15,8 @@ const testArray3 = [
 const differenceBy = (arr1, arr2, iteratee) => {
     if (Array.isArray(arr1) && Array.isArray(arr2)) {
         if (typeof iteratee === 'function') {
-            return arr1.filter(el => !arr2.includes(iteratee(el)));
+            const nextArray = arr2.map(el => iteratee(el));
+            return arr1.filter(el => !nextArray.includes(iteratee(el)));
         } else {
             return arr1.filter((el) => !arr2.some(x => x[iteratee] === el[iteratee]));
         }
