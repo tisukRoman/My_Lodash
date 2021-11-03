@@ -2,12 +2,12 @@
 // The order and references of result values are determined by the first array.
 
 const intersection = (...arrays) => {
-    let resultArray = arrays[0];
-    for (let i = 1; i < arrays.length; i++) {
-        const arrayWithShareValues = resultArray.filter(x => arrays[i].includes(x));
-        resultArray = [...arrayWithShareValues];
-    }
-    return resultArray;
+    const resultArray = arrays[0];
+    return resultArray.filter(el => {
+        if (arrays.every(x => x.includes(el))) {
+            return el;
+        }
+    });
 }
 
 
